@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff5e4;
+      }
+      .app-name {
+        text-align: center;
+      }
+      .board {
+        display: flex;
+        border: 5px double black;
+        margin: 0 auto;
+        height: 400px;
+        width: 400px;
+        flex-wrap: wrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 100px;
+        gap: 10px;
+        border-radius: 40px;
+        padding: 10px;
+        background-color: white;
+      }
+      .cell {
+        height: 100px;
+        width: 100px;
+        border: 2px solid black;
+        margin: 2px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cell:hover {
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.427);
+      }
+      .cell-p1 {
+        background-color: rgba(53, 240, 24, 0.523);
+      }
+      .cell-p2 {
+        background-color: rgba(247, 34, 1, 0.658);
+      }
+      img {
+        height: 80px;
+      }
+      .reset {
+        height: 35px;
+        width: 80px;
+        background-color: tomato;
+        border: 2px double tomato;
+        outline: 2px solid black;
+        border-radius: 10px;
+        font-size: 25px;
+        text-align: center;
+        display: block;
+        margin: 10px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-name"><h1>Tic Tac Toe</h1></div>
+    <div class="board" id="board">
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+    </div>
+    <button type="button" class="reset" onclick="restBoard()">Reset</button>
+
+    <script>
+      //numbering starting from 0 ot 9 in array form
+
+      const board = [-1, -1, -1, -1, -1, -1, -1, -1, -1]; //-1=there is not any player is present
+      const cellClass = {
+        1: "cell-p1",
+        2: "cell-p2",
+      };
+      const playerImg = {
+        1: "x.png",
+        2: "o.png",
+      };
+      let turn = 1;
+
+      function renderBoard() {
+        const boardElement = document.getElementById("board");
+        boardElement.innerHTML = "";
+        board.forEach((cellValue, index) => {
+          const className = cellClass[cellValue];
+          const imgTag = playerImg[cellValue]
+            ? `<img src="${playerImg[cellValue]}" />`
+            : "";
+          boardElement.innerHTML += `<div class="cell ${className}" onclick="handleTurn(${index})">${imgTag}</div>`;
+        });
+        checkWinner();
+      }
+      renderBoard();
+      function handleTurn(cellIndex) {
+        if (board[cellIndex] == -1) {
+          board[cellIndex] = turn;
+          turn = turn == 1 ? 2 : 1;
+          renderBoard();
+          return;
+        } else {
+          alert("invalid move");
+          return;
+        }
+      }
+      function checkWinner() {
+        const PLAYER_1 = 1;
+        const PLAYER_2 = 2;
+
+        if (checkPlayerForPosition(PLAYER_1, 0, 1, 2)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 0, 1, 2)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 3, 4, 5)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 3, 4, 5)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 6, 7, 8)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 6, 7, 8)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 2, 4, 6)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 2, 4, 6)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 0, 4, 8)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 8, 4, 8)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 0, 3, 6)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 0, 3, 6)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 1, 4, 7)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 1, 4, 7)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+        if (checkPlayerForPosition(PLAYER_1, 2, 5, 8)) {
+          alert("player 1 winnes");
+          window.location.reload();
+        } else if (checkPlayerForPosition(PLAYER_2, 2, 5, 8)) {
+          alert("player 2 winnes");
+          window.location.reload();
+        }
+      }
+
+      function checkPlayerForPosition(player, p1, p2, p3) {
+        //p1=postion 1...
+        if (board[p1] == player && board[p2] == player && board[p3] == player) {
+          return turn;
+        }
+      }
+
+      //reset board
+      function restBoard() {
+        if (confirm("reset") == true) {
+          window.location.reload();
+        }
+      }
+    </script>
+  </body>
+</html>
